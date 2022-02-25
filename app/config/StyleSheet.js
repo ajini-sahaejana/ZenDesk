@@ -1,37 +1,27 @@
 import { StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { useFonts } from "expo-font";
-import colors from "../config/colors";
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
+
+import colors from "./colors";
+
+export default {
+  colors,
+  text: {
+    color: colors.dark,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+  },
+};
 
 export const styles = StyleSheet.create({
   Background: {
     flex: 1,
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
     //flexDirection: "row",
     alignItems: "center",
+    height: "105%",
     backgroundColor: colors.white,
   },
-  // LoginButton: {
-  //   width: 100,
-  //   height: 100,
-  //   backgroundColor: colors.secondary,
-  //   borderWidth: 1,
-  //   borderColor: colors.lightBlue,
-  //   borderRadius: 50,
-  //   elevation: 20,
-  //   margin: 20,
-  // },
-  // RegisterButton: {
-  //   width: 100,
-  //   height: 100,
-  //   backgroundColor: colors.primary,
-  //   borderWidth: 1,
-  //   borderColor: colors.lightBlue,
-  //   borderRadius: 50,
-  //   elevation: 20,
-  //   margin: 20,
-  //   marginBottom: 40,
-  // },
   Container: {
     flex: 1,
     backgroundColor: colors.primary,
@@ -46,13 +36,14 @@ export const styles = StyleSheet.create({
   },
   InnerContainer: {
     flex: 1,
-    width: 250,
+    width: 300,
     alignItems: "center",
-    paddingTop: 20,
+    justifyContent: "flex-end",
+    paddingBottom: 100,
   },
   Logo: {
     // position: "absolute",
-    // top: 70,
+    // top: 10,
     width: 350,
     height: 350,
     // resizeMode: "cover",
@@ -132,4 +123,25 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 16,
   },
+  // LoginButton: {
+  //   width: 100,
+  //   height: 100,
+  //   backgroundColor: colors.secondary,
+  //   borderWidth: 1,
+  //   borderColor: colors.lightBlue,
+  //   borderRadius: 50,
+  //   elevation: 20,
+  //   margin: 20,
+  // },
+  // RegisterButton: {
+  //   width: 100,
+  //   height: 100,
+  //   backgroundColor: colors.primary,
+  //   borderWidth: 1,
+  //   borderColor: colors.lightBlue,
+  //   borderRadius: 50,
+  //   elevation: 20,
+  //   margin: 20,
+  //   marginBottom: 40,
+  // },
 });

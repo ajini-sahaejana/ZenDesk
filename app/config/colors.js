@@ -12,4 +12,7 @@ export default {
   pink: "#d264b6",
   lightBlue: "#a2d2ff",
   blue: "#0075a3",
+  dark: "#0c0c0c",
+  light: "#f8f4f4",
+  medium: "#6e6969",
 };
