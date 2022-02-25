@@ -3,9 +3,10 @@ import { React } from "react";
 import LoginScreen from "./app/screens/LoginScreen";
 import Screen from "./app/components/Screen";
 import AppTextInput from "./app/components/AppTextInput";
+import WelcomeScreen from "./app/screens/WelcomeScreen";
 
 export default function App() {
-  return <LoginScreen />;
+  return <WelcomeScreen />;
 }
 
 // export default function App() {

@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     // justifyContent: "flex-end",
     //flexDirection: "row",
     alignItems: "center",
-    height: "105%",
+    height: "100%",
     backgroundColor: colors.white,
   },
   Container: {

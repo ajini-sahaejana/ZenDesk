@@ -1,22 +1,75 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, View, StyleSheet } from "react-native";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
 import Screen from "../components/Screen";
+import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
+import defaultStyles from "../config/StyleSheet";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+});
 
 function LoginScreen(props) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  // const [email, setEmail] = useState();
+  // const [password, setPassword] = useState();
 
   return (
     <Screen>
-      <View style={styles.container}>
+      <View style={stylesinline.container}>
         <Image
-          style={styles.logo}
+          style={stylesinline.logo}
           source={require("../assets/img/logoLight.png")}
         />
-        <AppTextInput
+        <AppText style={[defaultStyles.text, { width: 300, height: 100 }]}>
+          Login to ZenDesk now to continue using your account.
+        </AppText>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={(values) => console.log(values)}
+          validationSchema={validationSchema}
+        >
+          {({ handleChange, handleSubmit, errors }) => (
+            <>
+              <AppTextInput
+                autoCapitalize="none"
+                autocorrect={false}
+                icon="email"
+                keyboardType="email-address"
+                // onChangeText={(text) => setEmail(text)}
+                onChangeText={handleChange("email")}
+                placeholder="Email"
+                textConentType="emailAddress"
+              />
+              <AppText style={{ color: "red" }}>{errors.email}</AppText>
+              <AppTextInput
+                autoCapitalize="none"
+                autocorrect={false}
+                icon="lock"
+                // onChangeText={(text) => setPassword(text)}
+                onChangeText={handleChange("password")}
+                placeholder="Password"
+                secureTextEntry
+                textConentType="password"
+              />
+              <AppText style={{ color: "red", marginBottom: 20 }}>
+                {errors.password}
+              </AppText>
+
+              <AppButton
+                title="Login"
+                // onPress={() => console.log(email, password)}
+                onPress={handleSubmit}
+              />
+            </>
+          )}
+        </Formik>
+
+        {/* <AppTextInput
           autoCapitalize="none"
           autocorrect={false}
           icon="email"
@@ -34,7 +87,7 @@ function LoginScreen(props) {
           secureTextEntry
           textConentType="password"
         />
-        <AppButton title="Login" onPress={() => console.log(email, password)} />
+        <AppButton title="Login" onPress={() => console.log(email, password)} /> */}
         {/* <TextInput
         clearButtonMode="always"
         secureTextEntry
@@ -52,10 +105,11 @@ function LoginScreen(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const stylesinline = StyleSheet.create({
   container: {
-    // margin: 20,
+    margin: 20,
     padding: 20,
+    alignItems: "center",
   },
   logo: {
     width: 250,
