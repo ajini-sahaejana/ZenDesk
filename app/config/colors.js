@@ -1,0 +1,15 @@
+export default {
+  black: "#000",
+  white: "#fff",
+  primary: "#043565",
+  secondary: "#0396a6",
+  tertiary: "#1f2937",
+  darkLight: "#9ca3af",
+  brand: "#6d28d9",
+  red: "#ef4444",
+  purple: "#cdb4db",
+  lightPink: "#ffc8dd",
+  pink: "#d264b6",
+  lightBlue: "#a2d2ff",
+  blue: "#0075a3",
+};
