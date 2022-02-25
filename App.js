@@ -6,7 +6,7 @@ import AppTextInput from "./app/components/AppTextInput";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 
 export default function App() {
-  return <WelcomeScreen />;
+  return <LoginScreen />;
 }
 
 // export default function App() {

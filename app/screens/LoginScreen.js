@@ -3,11 +3,15 @@ import { Image, View, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import Screen from "../components/Screen";
+import AppButton from "../components/AppButton";
 import AppText from "../components/AppText";
 import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
+import ErrorMessage from "../components/ErrorMessage";
 import defaultStyles from "../config/StyleSheet";
+import Screen from "../components/Screen";
+import colors from "../config/colors";
+import AppFormField from "../components/AppFormField";
+import SubmitButton from "../components/SubmitButton";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -15,9 +19,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen(props) {
-  // const [email, setEmail] = useState();
-  // const [password, setPassword] = useState();
-
   return (
     <Screen>
       <View style={stylesinline.container}>
@@ -25,7 +26,18 @@ function LoginScreen(props) {
           style={stylesinline.logo}
           source={require("../assets/img/logoLight.png")}
         />
-        <AppText style={[defaultStyles.text, { width: 300, height: 100 }]}>
+        <AppText
+          style={[
+            defaultStyles.text,
+            {
+              marginTop: 20,
+              height: 100,
+              width: 300,
+              textAlign: "center",
+              // backgroundColor: colors.blue,
+            },
+          ]}
+        >
           Login to ZenDesk now to continue using your account.
         </AppText>
         <Formik
@@ -33,73 +45,40 @@ function LoginScreen(props) {
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-          {({ handleChange, handleSubmit, errors }) => (
+          {() => (
+            //   {
+            //   handleChange,
+            //   handleSubmit,
+            //   errors,
+            //   setFieldTouched,
+            //   touched,
+            // }
             <>
-              <AppTextInput
+              <AppFormField
                 autoCapitalize="none"
                 autocorrect={false}
                 icon="email"
                 keyboardType="email-address"
-                // onChangeText={(text) => setEmail(text)}
-                onChangeText={handleChange("email")}
+                name="email"
                 placeholder="Email"
                 textConentType="emailAddress"
               />
-              <AppText style={{ color: "red" }}>{errors.email}</AppText>
-              <AppTextInput
+              <AppFormField
                 autoCapitalize="none"
                 autocorrect={false}
                 icon="lock"
-                // onChangeText={(text) => setPassword(text)}
-                onChangeText={handleChange("password")}
+                name="password"
                 placeholder="Password"
                 secureTextEntry
                 textConentType="password"
               />
-              <AppText style={{ color: "red", marginBottom: 20 }}>
-                {errors.password}
-              </AppText>
-
-              <AppButton
-                title="Login"
-                // onPress={() => console.log(email, password)}
-                onPress={handleSubmit}
-              />
+              <View style={{ marginTop: 25, width: "50%" }}>
+                <SubmitButton title="Login" />
+                {/* <AppButton title="Login" onPress={handleSubmit} /> */}
+              </View>
             </>
           )}
         </Formik>
-
-        {/* <AppTextInput
-          autoCapitalize="none"
-          autocorrect={false}
-          icon="email"
-          keyboardType="email-address"
-          onChangeText={(text) => setEmail(text)}
-          placeholder="Email"
-          textConentType="emailAddress"
-        />
-        <AppTextInput
-          autoCapitalize="none"
-          autocorrect={false}
-          icon="lock"
-          onChangeText={(text) => setPassword(text)}
-          placeholder="Password"
-          secureTextEntry
-          textConentType="password"
-        />
-        <AppButton title="Login" onPress={() => console.log(email, password)} /> */}
-        {/* <TextInput
-        clearButtonMode="always"
-        secureTextEntry
-        // keyboardType="numeric"
-        maxLength={15}
-        onChangeText={(text) => setFirstName(text)}
-        placeholder="First Name"
-        style={{
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 1,
-        }}
-      /> */}
       </View>
     </Screen>
   );
@@ -121,62 +100,3 @@ const stylesinline = StyleSheet.create({
 });
 
 export default LoginScreen;
-
-// import { StatusBar } from "expo-status-bar";
-// import { React } from "react";
-// import { Text, View, SafeAreaView, Button, Image } from "react-native";
-// import { Formik } from "formik";
-// import { Octicons } from "@expo/vector-icons";
-
-// import { styles } from "../components/StyleSheet";
-// import colors from "../config/colors";
-
-// const Login = () => {
-//   return (
-//     <SafeAreaView style={styles.Container}>
-//       <StatusBar style="dark" />
-//       <View style={styles.InnerContainer}>
-//         <View style={styles.Logo}>
-//           <Image source={require("../assets/img/logoLight.png")} />
-//         </View>
-//         <Text style={styles.Title}>FinalProject</Text>
-//         <Text style={styles.SubTitle}>Account Login</Text>
-//         {/* <Formik
-//           initialValues={{ email: "", password: "" }}
-//           onSubmit={(values) => {
-//             console.log(values);
-//           }}
-//         >
-//           {({ handleChange, handleBlur, handleSubmit, values }) => (
-//             <View style={styles.StyledFormArea}>
-//               <MyTextInput
-//                 label="Email Address"
-//                 icon="mail"
-//                 placeholder="jini@gmail.com"
-//                 placeholderTextColor={darkLight}
-//                 onChangeText={handleChange("email")}
-//                 onBlur={handleBlur("email")}
-//                 value={values.email}
-//                 keyboardType="email-address"
-//               />
-//             </View>
-//           )}
-//         </Formik> */}
-//       </View>
-//     </SafeAreaView>
-//   );
-// };
-
-// // const MyTextInput = ({ label, icon, ...props }) => {
-// //   return (
-// //     <View>
-// //       <View style={styles.LeftIcon}>
-// //         <Octicons name={icon} size={30} color={colors.brand} />
-// //       </View>
-// //       {/* <Text style={styles.StyledInputLabel}>{label}</Text>
-// //       <TextInput style={styles.StyledTextInput}>{...props}</TextInput> */}
-// //     </View>
-// //   );
-// // };
-
-// export default Login;
