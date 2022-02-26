@@ -5,6 +5,7 @@ import defaultStyles from "../config/StyleSheet";
 import AppText from "../components/Text";
 import { styles } from "../config/StyleSheet";
 import AppButton from "../components/Button";
+import colors from "../config/colors";
 
 function WelcomeScreen(props) {
   return (
@@ -24,20 +25,20 @@ function WelcomeScreen(props) {
           style={[
             defaultStyles.text,
             {
-              position: "absolute",
-              paddingBottom: 50,
-              height: 150,
               textAlign: "center",
+              color: colors.primary,
+              fontSize: 20,
+              fontWeight: "bold",
+              height: 150,
+              position: "absolute",
               textAlignVertical: "center",
-              justifyContent: "center",
-              // backgroundColor: "red",
             },
           ]}
         >
-          Welcome to ZenDesk, Your mental health companion. Let's get started.
+          Welcome to ZenDesk, Your mental health companion.
+          {/* Let's get started. */}
         </AppText>
       </View>
-
       <View style={styles.ButtonContainer}>
         <AppButton title="Login" color="secondary" />
         <AppButton title="Register" />
