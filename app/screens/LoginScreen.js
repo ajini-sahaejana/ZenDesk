@@ -29,12 +29,14 @@ function LoginScreen(props) {
               color: colors.blue,
               fontSize: 20,
               fontWeight: "bold",
+              marginBottom: 30,
             },
           ]}
         >
-          Account Login
+          ACCOUNT LOGIN
+          {/* LOGIN TO YOUR ACCOUNT */}
         </AppText>
-        <AppText
+        {/* <AppText
           style={[
             defaultStyles.text,
             {
@@ -47,7 +49,7 @@ function LoginScreen(props) {
           ]}
         >
           Login to ZenDesk to continue using your account.
-        </AppText>
+        </AppText> */}
         <AppForm
           initialValues={{ email: "", password: "" }}
           onSubmit={(values) => console.log(values)}
@@ -107,7 +109,7 @@ const stylesinline = StyleSheet.create({
     height: 250,
     alignSelf: "center",
     // marginTop: 10,
-    marginBottom: 30,
+    marginBottom: 70,
   },
 });
 
