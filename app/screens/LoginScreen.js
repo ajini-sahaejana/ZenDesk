@@ -1,17 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Image, View, StyleSheet } from "react-native";
-import { Formik } from "formik";
 import * as Yup from "yup";
 
-import AppButton from "../components/AppButton";
-import AppText from "../components/AppText";
-import AppTextInput from "../components/AppTextInput";
-import ErrorMessage from "../components/ErrorMessage";
 import defaultStyles from "../config/StyleSheet";
 import Screen from "../components/Screen";
-import colors from "../config/colors";
-import AppFormField from "../components/AppFormField";
-import SubmitButton from "../components/SubmitButton";
+import AppText from "../components/Text";
+
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -34,51 +29,38 @@ function LoginScreen(props) {
               height: 100,
               width: 300,
               textAlign: "center",
-              // backgroundColor: colors.blue,
             },
           ]}
         >
           Login to ZenDesk now to continue using your account.
         </AppText>
-        <Formik
+        <AppForm
           initialValues={{ email: "", password: "" }}
           onSubmit={(values) => console.log(values)}
           validationSchema={validationSchema}
         >
-          {() => (
-            //   {
-            //   handleChange,
-            //   handleSubmit,
-            //   errors,
-            //   setFieldTouched,
-            //   touched,
-            // }
-            <>
-              <AppFormField
-                autoCapitalize="none"
-                autocorrect={false}
-                icon="email"
-                keyboardType="email-address"
-                name="email"
-                placeholder="Email"
-                textConentType="emailAddress"
-              />
-              <AppFormField
-                autoCapitalize="none"
-                autocorrect={false}
-                icon="lock"
-                name="password"
-                placeholder="Password"
-                secureTextEntry
-                textConentType="password"
-              />
-              <View style={{ marginTop: 25, width: "50%" }}>
-                <SubmitButton title="Login" />
-                {/* <AppButton title="Login" onPress={handleSubmit} /> */}
-              </View>
-            </>
-          )}
-        </Formik>
+          <AppFormField
+            autoCapitalize="none"
+            autocorrect={false}
+            icon="email"
+            keyboardType="email-address"
+            name="email"
+            placeholder="Email"
+            textConentType="emailAddress"
+          />
+          <AppFormField
+            autoCapitalize="none"
+            autocorrect={false}
+            icon="lock"
+            name="password"
+            placeholder="Password"
+            secureTextEntry
+            textConentType="password"
+          />
+          <View style={{ marginTop: 25, width: "50%" }}>
+            <SubmitButton title="Login" />
+          </View>
+        </AppForm>
       </View>
     </Screen>
   );
