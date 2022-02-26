@@ -16,7 +16,7 @@ function WelcomeScreen(props) {
       <View style={styles.LogoContainer}>
         <Image
           style={styles.Logo}
-          source={require("../assets/img/logoLight.png")}
+          source={require("../assets/img/logoText.png")}
         />
       </View>
       <View style={styles.InnerContainer}>

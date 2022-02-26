@@ -2,7 +2,7 @@ import React from "react";
 import { Image, View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
-import defaultStyles from "../config/StyleSheet";
+import defaultStyles, { styles } from "../config/StyleSheet";
 import Screen from "../components/Screen";
 import AppText from "../components/Text";
 
@@ -20,20 +20,33 @@ function LoginScreen(props) {
       <View style={stylesinline.container}>
         <Image
           style={stylesinline.logo}
-          source={require("../assets/img/logoLight.png")}
+          source={require("../assets/img/logoDef.png")}
         />
+        <AppText
+          style={[
+            {
+              textAlign: "center",
+              color: colors.blue,
+              fontSize: 20,
+              fontWeight: "bold",
+            },
+          ]}
+        >
+          Account Login
+        </AppText>
         <AppText
           style={[
             defaultStyles.text,
             {
-              marginTop: 20,
-              height: 100,
-              width: 300,
+              marginTop: 10,
+              height: 75,
+              width: 350,
               textAlign: "center",
+              fontSize: 16,
             },
           ]}
         >
-          Login to ZenDesk now to continue using your account.
+          Login to ZenDesk to continue using your account.
         </AppText>
         <AppForm
           initialValues={{ email: "", password: "" }}
@@ -41,6 +54,7 @@ function LoginScreen(props) {
           validationSchema={validationSchema}
         >
           <AppFormField
+            // style={{ width: "80%", fontSize: 18 }}
             autoCapitalize="none"
             autocorrect={false}
             icon="email"
@@ -50,6 +64,7 @@ function LoginScreen(props) {
             textConentType="emailAddress"
           />
           <AppFormField
+            // style={{ width: "80%", fontSize: 18 }}
             autoCapitalize="none"
             autocorrect={false}
             icon="lock"
@@ -69,6 +84,7 @@ function LoginScreen(props) {
                 marginTop: 60,
                 color: colors.darkLight,
                 textDecorationLine: "underline",
+                textAlign: "center",
               },
             ]}
           >
@@ -90,8 +106,8 @@ const stylesinline = StyleSheet.create({
     width: 250,
     height: 250,
     alignSelf: "center",
-    marginTop: 10,
-    marginBottom: 20,
+    // marginTop: 10,
+    marginBottom: 30,
   },
 });
 

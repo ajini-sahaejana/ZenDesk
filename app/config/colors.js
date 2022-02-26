@@ -15,5 +15,5 @@ export default {
   dark: "#0c0c0c",
   light: "#f8f4f4",
   medium: "#6e6969",
-  lighGreen: "#B1DDD2",
+  lighGreen: "#E5F4F5",
 };
