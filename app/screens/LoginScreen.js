@@ -7,6 +7,7 @@ import Screen from "../components/Screen";
 import AppText from "../components/Text";
 
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+import colors from "../config/colors";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -58,8 +59,21 @@ function LoginScreen(props) {
             textConentType="password"
           />
           <View style={{ marginTop: 25, width: "50%" }}>
-            <SubmitButton title="Login" />
+            <SubmitButton title="Login" color="primary" />
           </View>
+          <AppText
+            style={[
+              defaultStyles.text,
+              {
+                fontSize: 13,
+                marginTop: 60,
+                color: colors.darkLight,
+                textDecorationLine: "underline",
+              },
+            ]}
+          >
+            Don't have an account yet?
+          </AppText>
         </AppForm>
       </View>
     </Screen>
@@ -76,7 +90,7 @@ const stylesinline = StyleSheet.create({
     width: 250,
     height: 250,
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 20,
   },
 });

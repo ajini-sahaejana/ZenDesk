@@ -11,7 +11,7 @@ function WelcomeScreen(props) {
     <ImageBackground
       blurRadius={7}
       style={styles.Background}
-      source={require("../assets/img/1.png")}
+      // /source={require("../assets/img/1.png")}
     >
       <View style={styles.LogoContainer}>
         <Image
@@ -20,7 +20,20 @@ function WelcomeScreen(props) {
         />
       </View>
       <View style={styles.InnerContainer}>
-        <AppText style={defaultStyles.text}>
+        <AppText
+          style={[
+            defaultStyles.text,
+            {
+              position: "absolute",
+              paddingBottom: 50,
+              height: 150,
+              textAlign: "center",
+              textAlignVertical: "center",
+              justifyContent: "center",
+              // backgroundColor: "red",
+            },
+          ]}
+        >
           Welcome to ZenDesk, Your mental health companion. Let's get started.
         </AppText>
       </View>
