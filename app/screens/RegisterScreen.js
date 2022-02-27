@@ -1,12 +1,12 @@
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
 import * as Yup from "yup";
 
 import defaultStyles, { styles } from "../config/StyleSheet";
 import Screen from "../components/Screen";
 import AppText from "../components/Text";
-
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+
 import KeyboardWrapper from "../components/forms/KeyboardWrapper";
 import colors from "../config/colors";
 
@@ -16,7 +16,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function RegisterScreen(props) {
+function RegisterScreen({ navigation }) {
   return (
     <KeyboardWrapper>
       <Screen>
@@ -48,7 +48,6 @@ function RegisterScreen(props) {
               autoCapitalize="none"
               autocorrect={false}
               icon="account"
-              keyboardType="default"
               name="username"
               placeholder="Username"
               textConentType="username"
@@ -68,27 +67,21 @@ function RegisterScreen(props) {
               icon="lock"
               name="password"
               placeholder="Password"
-              // placeholderTextColor={colors.pink}
               secureTextEntry
               textConentType="password"
             />
             <View style={{ marginTop: 25, width: "50%" }}>
               <SubmitButton title="Register" color="primary" />
             </View>
-            <AppText
-              style={[
-                defaultStyles.text,
-                {
-                  fontSize: 13,
-                  marginTop: 50,
-                  color: colors.darkLight,
-                  textDecorationLine: "underline",
-                  textAlign: "center",
-                },
-              ]}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
             >
-              Already have an account?
-            </AppText>
+              <AppText style={[defaultStyles.text, stylesinline.text]}>
+                Already have an account?
+              </AppText>
+            </TouchableOpacity>
           </AppForm>
         </View>
       </Screen>
@@ -109,6 +102,13 @@ const stylesinline = StyleSheet.create({
     // marginTop: 10,
     marginBottom: 70,
     // backgroundColor: "red",
+  },
+  text: {
+    fontSize: 13,
+    marginTop: 50,
+    color: colors.darkLight,
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
 });
 

@@ -1,12 +1,18 @@
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
+import {
+  Image,
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from "react-native";
 import * as Yup from "yup";
 
 import defaultStyles, { styles } from "../config/StyleSheet";
 import Screen from "../components/Screen";
 import AppText from "../components/Text";
-
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+
 import KeyboardWrapper from "../components/forms/KeyboardWrapper";
 import colors from "../config/colors";
 
@@ -15,7 +21,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function LoginScreen(props) {
+function LoginScreen({ navigation }) {
   return (
     <KeyboardWrapper>
       <Screen>
@@ -39,7 +45,10 @@ function LoginScreen(props) {
           </AppText>
           <AppForm
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+              console.log(values);
+              navigation.navigate("MainScreen");
+            }}
             validationSchema={validationSchema}
           >
             <AppFormField
@@ -65,20 +74,15 @@ function LoginScreen(props) {
             <View style={{ marginTop: 25, width: "50%" }}>
               <SubmitButton title="Login" color="primary" />
             </View>
-            <AppText
-              style={[
-                defaultStyles.text,
-                {
-                  fontSize: 13,
-                  marginTop: 50,
-                  color: colors.darkLight,
-                  textDecorationLine: "underline",
-                  textAlign: "center",
-                },
-              ]}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Register");
+              }}
             >
-              Don't have an account yet?
-            </AppText>
+              <AppText style={[defaultStyles.text, stylesinline.text]}>
+                Don't have an account yet?
+              </AppText>
+            </TouchableOpacity>
           </AppForm>
         </View>
       </Screen>
@@ -98,6 +102,13 @@ const stylesinline = StyleSheet.create({
     alignSelf: "center",
     // marginTop: 10,
     marginBottom: 70,
+  },
+  text: {
+    fontSize: 13,
+    marginTop: 50,
+    color: colors.darkLight,
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
 });
 
