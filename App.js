@@ -7,12 +7,14 @@ import WelcomeScreen from "./app/screens/WelcomeScreen";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import NavigationTheme from "./app/navigation/NavigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
+import AccountScreen from "./app/screens/AccountScreen";
 
 export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
-      <AuthNavigator />
+      {/* <AuthNavigator /> */}
+      <AppNavigator />
     </NavigationContainer>
-    // <LoginScreen />
+    // <RegisterScreen />
   );
 }

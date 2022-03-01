@@ -9,7 +9,7 @@ export default {
   red: "#ef4444",
   purple: "#cdb4db",
   lightPink: "#bf7e8a",
-  pink: "#d264b6",
+  pink: "#b84c65",
   lightBlue: "#bde0fe",
   blue: "#0075a3",
   dark: "#0c0c0c",

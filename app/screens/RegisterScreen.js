@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
 import * as Yup from "yup";
 
-import defaultStyles, { styles } from "../config/StyleSheet";
+import defaultStyles from "../config/StyleSheet";
 import Screen from "../components/Screen";
 import AppText from "../components/Text";
 import { AppForm, AppFormField, SubmitButton } from "../components/forms";
@@ -17,6 +17,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen({ navigation }) {
+  const [hidePassword, setHidePassword] = useState(true);
+
   return (
     <KeyboardWrapper>
       <Screen>
@@ -38,7 +40,6 @@ function RegisterScreen({ navigation }) {
           >
             CREATE AN ACCOUNT
           </AppText>
-
           <AppForm
             initialValues={{ username: "", email: "", password: "" }}
             onSubmit={(values) => console.log(values)}
@@ -67,8 +68,11 @@ function RegisterScreen({ navigation }) {
               icon="lock"
               name="password"
               placeholder="Password"
-              secureTextEntry
+              secureTextEntry={hidePassword}
               textConentType="password"
+              isPassword={true}
+              hidePassword={hidePassword}
+              setHidePassword={setHidePassword}
             />
             <View style={{ marginTop: 25, width: "50%" }}>
               <SubmitButton title="Register" color="primary" />
@@ -105,7 +109,7 @@ const stylesinline = StyleSheet.create({
   },
   text: {
     fontSize: 13,
-    marginTop: 50,
+    marginTop: 20,
     color: colors.darkLight,
     textDecorationLine: "underline",
     textAlign: "center",

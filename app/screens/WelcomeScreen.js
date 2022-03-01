@@ -17,7 +17,7 @@ function WelcomeScreen({ navigation }) {
       <View style={styles.LogoContainer}>
         <Image
           style={styles.Logo}
-          source={require("../assets/img/logoText.png")}
+          source={require("../assets/img/logoDefault.png")}
         />
       </View>
       <View style={styles.InnerContainer}>
@@ -27,16 +27,16 @@ function WelcomeScreen({ navigation }) {
             {
               textAlign: "center",
               color: colors.primary,
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: "bold",
-              height: 150,
+              width: "100%",
+              height: 50,
               position: "absolute",
               textAlignVertical: "center",
             },
           ]}
         >
-          Welcome to ZenDesk, Your mental health companion.
-          {/* Let's get started. */}
+          {/* Welcome to ZenDesk, your mental health companion. Let's get started. */}
         </AppText>
       </View>
       <View style={styles.ButtonContainer}>
