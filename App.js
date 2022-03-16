@@ -12,8 +12,8 @@ import AccountScreen from "./app/screens/AccountScreen";
 export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
-      {/* <AuthNavigator /> */}
-      <AppNavigator />
+      <AuthNavigator />
+      {/* <AppNavigator /> */}
     </NavigationContainer>
     // <RegisterScreen />
   );

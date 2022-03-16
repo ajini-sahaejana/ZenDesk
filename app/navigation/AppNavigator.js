@@ -40,7 +40,7 @@ const AppNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="Need Help?"
+      name="Help"
       component={HelpScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
@@ -49,7 +49,7 @@ const AppNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="My Profile"
+      name="Account"
       component={AccountScreen}
       options={{
         // headerShown: false,
