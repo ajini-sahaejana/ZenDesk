@@ -78,8 +78,7 @@ export const styles = StyleSheet.create({
   MsgBox: {
     textAlign: "center",
     fontSize: 13,
-    color: (props) =>
-      props.type == "SUCCESS" ? colors.lightGreen : colors.red,
+    color: (props) => (props.type == "SUCCESS" ? colors.green : colors.red),
   },
   TagLine: {
     fontSize: 25,

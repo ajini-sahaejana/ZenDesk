@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import * as Yup from "yup";
+import { Formik } from "formik";
 
 import defaultStyles from "../config/StyleSheet";
 import { styles } from "../config/StyleSheet";
@@ -77,53 +78,65 @@ function LoginScreen({ navigation }) {
           >
             ACCOUNT LOGIN
           </AppText>
-          <AppForm
+          <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => {
-              console.log(values);
-              navigation.navigate("Welcome");
-            }}
+            onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}
           >
-            <AppFormField
-              // style={{ width: "80%", fontSize: 18 }}
-              autoCapitalize="none"
-              autocorrect={false}
-              icon="email"
-              keyboardType="email-address"
-              name="email"
-              placeholder="Email"
-              textConentType="emailAddress"
-            />
-            <AppFormField
-              // style={{ width: "80%", fontSize: 18 }}
-              autoCapitalize="none"
-              autocorrect={false}
-              icon="lock"
-              name="password"
-              placeholder="Password"
-              secureTextEntry={hidePassword}
-              textConentType="password"
-              isPassword={true}
-              hidePassword={hidePassword}
-              setHidePassword={setHidePassword}
-            />
-            <View style={{ marginTop: 25, width: "50%" }}>
-              <SubmitButton title="Login" color="primary" />
-            </View>
-            <AppText type={messageType} style={styles.MsgBox}>
-              {message}
-            </AppText>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Register");
-              }}
-            >
-              <AppText style={[defaultStyles.text, stylesinline.text]}>
-                Don't have an account yet?
-              </AppText>
-            </TouchableOpacity>
-          </AppForm>
+            {({ isSubmitting }) => (
+              <>
+                <AppFormField
+                  autoCapitalize="none"
+                  autocorrect={false}
+                  icon="email"
+                  keyboardType="email-address"
+                  name="email"
+                  placeholder="Email"
+                  textConentType="emailAddress"
+                />
+                <AppFormField
+                  autoCapitalize="none"
+                  autocorrect={false}
+                  icon="lock"
+                  name="password"
+                  placeholder="Password"
+                  secureTextEntry={hidePassword}
+                  textConentType="password"
+                  isPassword={true}
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                />
+
+                {!isSubmitting && (
+                  <View style={{ marginTop: 25, width: "50%" }}>
+                    <SubmitButton title="Login" color="primary" />
+                  </View>
+                )}
+                {isSubmitting && (
+                  <View style={{ marginTop: 25, width: "50%" }}>
+                    <SubmitButton
+                      title="Please wait..."
+                      color="primary"
+                      disabled={true}
+                    />
+                    <ActivityIndicator size="small" color="primary" />
+                  </View>
+                )}
+                <AppText type={messageType} style={styles.MsgBox}>
+                  {message}
+                </AppText>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Register");
+                  }}
+                >
+                  <AppText style={[defaultStyles.text, stylesinline.text]}>
+                    Don't have an account yet?
+                  </AppText>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
         </View>
       </Screen>
     </KeyboardWrapper>
