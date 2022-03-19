@@ -31,7 +31,8 @@ function LoginScreen({ navigation }) {
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
 
-  const handleLogin = (credentials) => {
+  const handleLogin = (credentials, setSubmitting) => {
+    handleMessage(null);
     const url = "https://zendesklk.herokuapp.com/user/login";
 
     axios
@@ -45,9 +46,11 @@ function LoginScreen({ navigation }) {
         } else {
           navigation.navigate("Welcome", { ...data[0] });
         }
+        setSubmitting(false);
       })
       .catch((error) => {
         console.log(error.JSON());
+        setSubmitting(false);
         handleMessage("An error occured. Check your network and try again");
       });
   };
@@ -80,7 +83,9 @@ function LoginScreen({ navigation }) {
           </AppText>
           <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values, { setSubmitting }) => {
+              handleLogin(values, setSubmitting);
+            }}
             validationSchema={validationSchema}
           >
             {({ isSubmitting }) => (
@@ -115,11 +120,11 @@ function LoginScreen({ navigation }) {
                 {isSubmitting && (
                   <View style={{ marginTop: 25, width: "50%" }}>
                     <SubmitButton
-                      title="Please wait..."
-                      color="primary"
+                      title="loading"
+                      color="secondary"
                       disabled={true}
                     />
-                    <ActivityIndicator size="small" color="primary" />
+                    <ActivityIndicator size="large" color="primary" />
                   </View>
                 )}
                 <AppText type={messageType} style={styles.MsgBox}>
@@ -158,7 +163,7 @@ const stylesinline = StyleSheet.create({
   },
   text: {
     fontSize: 13,
-    marginTop: 20,
+    marginTop: 50,
     color: colors.darkLight,
     textDecorationLine: "underline",
     textAlign: "center",

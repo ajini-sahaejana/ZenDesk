@@ -7,7 +7,7 @@ import colors from "./colors";
 export default {
   colors,
   text: {
-    color: colors.pink,
+    color: colors.primary,
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
     width: "75%",
@@ -76,9 +76,11 @@ export const styles = StyleSheet.create({
     color: colors.tertiary,
   },
   MsgBox: {
+    padding: 10,
     textAlign: "center",
-    fontSize: 13,
-    color: (props) => (props.type == "SUCCESS" ? colors.green : colors.red),
+    fontSize: 14,
+    color: colors.red,
+    // color: (props) => (props.type === "SUCCESS" ? colors.green : colors.red),
   },
   TagLine: {
     fontSize: 25,
