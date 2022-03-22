@@ -6,37 +6,78 @@ import colors from "../config/colors";
 import Icon from "../components/Icon";
 import Screen from "../components/Screen";
 
-function AccountScreen(props) {
+const menuItems = [
+  {
+    title: "My Progress",
+    icon: {
+      name: "format-list-bulleted",
+      backgroundColor: colors.primary,
+    },
+  },
+  {
+    title: "My Messages",
+    icon: {
+      name: "email",
+      backgroundColor: colors.secondary,
+    },
+    targetScreen: "Messages",
+  },
+];
+
+function AccountScreen({ navigation }) {
   return (
-    <Screen>
-      <View style={styles.screen}>
-        <View style={styles.container}>
-          <ListItem
-            title="Ajini Perera"
-            subTitle="asperera.slir@gmail.com"
-            image={require("../assets/img/reading.png")}
-          />
-        </View>
+    <Screen style={styles.screen}>
+      <View style={styles.container}>
         <ListItem
-          title="Log Out"
-          IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+          title="Ajini Perera"
+          subTitle="asperera.slir@gmail.com"
+          image={require("../assets/img/reading.png")}
         />
       </View>
+
+      <View style={styles.container2}>
+        <FlatList
+          data={menuItems}
+          keyExtractor={(menuItem) => menuItem.title}
+          ItemSeparatorComponent={ListItemSeparator}
+          renderItem={({ item }) => (
+            <ListItem
+              title={item.title}
+              IconComponent={
+                <Icon
+                  name={item.icon.name}
+                  backgroundColor={item.icon.backgroundColor}
+                />
+              }
+              onPress={() => navigation.navigate(item.targetScreen)}
+            />
+          )}
+        />
+      </View>
+      <ListItem
+        title="Log Out"
+        IconComponent={<Icon name="logout" backgroundColor={colors.primary} />}
+      />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    // backgroundColor: colors.lightGreen,
-  },
   container: {
     backgroundColor: colors.lightGreen,
-
-    // paddingTop: 40,
+    // padding: 10,
+    paddingTop: 80,
     // marginVertical: 20,
-    marginBottom: 50,
-    // paddingBottom: 20,
+    marginBottom: 20,
+    paddingBottom: 80,
+  },
+  screen: {
+    marginTop: -35,
+    // backgroundColor: colors.light,
+  },
+  container2: {
+    backgroundColor: colors.lightGreen,
+    marginBottom: 165,
   },
 });
 
