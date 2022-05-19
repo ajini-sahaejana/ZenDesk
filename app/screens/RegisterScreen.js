@@ -75,6 +75,7 @@ function RegisterScreen({ navigation }) {
                 color: colors.primary,
                 fontSize: 20,
                 fontWeight: "bold",
+                // marginTop: -40,
                 marginBottom: 30,
               },
             ]}

@@ -6,7 +6,6 @@ import MeditateScreen from "../screens/MeditateScreen";
 import EventScreen from "../screens/EventScreen";
 import MainScreen from "../screens/MainScreen";
 import HelpScreen from "../screens/HelpScreen";
-import AccountScreen from "../screens/AccountScreen";
 import AccountNavigator from "./AccountNavigator";
 
 const Tab = createBottomTabNavigator();
