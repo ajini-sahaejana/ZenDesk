@@ -1,36 +1,27 @@
 import { StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { useFonts } from "expo-font";
-import colors from "../config/colors";
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
+
+import colors from "./colors";
+
+export default {
+  colors,
+  text: {
+    color: colors.primary,
+    fontSize: 18,
+    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
+    width: "75%",
+  },
+};
 
 export const styles = StyleSheet.create({
   Background: {
     flex: 1,
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
     //flexDirection: "row",
     alignItems: "center",
+    height: "100%",
     backgroundColor: colors.white,
-  },
-  LoginButton: {
-    width: 100,
-    height: 100,
-    backgroundColor: colors.secondary,
-    borderWidth: 1,
-    borderColor: colors.lightBlue,
-    borderRadius: 50,
-    elevation: 20,
-    margin: 20,
-  },
-  RegisterButton: {
-    width: 100,
-    height: 100,
-    backgroundColor: colors.primary,
-    borderWidth: 1,
-    borderColor: colors.lightBlue,
-    borderRadius: 50,
-    elevation: 20,
-    margin: 20,
-    marginBottom: 40,
   },
   Container: {
     flex: 1,
@@ -40,17 +31,22 @@ export const styles = StyleSheet.create({
     padding: 25,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
+  ButtonContainer: {
+    padding: 40,
+    width: "100%",
+  },
   InnerContainer: {
     flex: 1,
-    width: 250,
+    width: 300,
     alignItems: "center",
-    paddingTop: 20,
+    justifyContent: "flex-end",
+    paddingBottom: 100,
   },
   Logo: {
     // position: "absolute",
-    // top: 70,
-    width: 300,
-    height: 300,
+    // top: 10,
+    width: 350,
+    height: 350,
     // resizeMode: "cover",
     //backgroundColor: "dodgerblue",
     //flex: 1,
@@ -78,6 +74,18 @@ export const styles = StyleSheet.create({
     letterSpacing: 1,
     fontWeight: "bold",
     color: colors.tertiary,
+  },
+  MsgBox: {
+    padding: 10,
+    textAlign: "center",
+    fontSize: 14,
+    color: colors.red,
+    // color: (props) => (props.type === "SUCCESS" ? colors.green : colors.red),
+  },
+  TagLine: {
+    fontSize: 25,
+    fontWeight: "600",
+    paddingVertical: 20,
   },
   StyledFormArea: {
     width: 90,
@@ -123,4 +131,25 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 16,
   },
+  // LoginButton: {
+  //   width: 100,
+  //   height: 100,
+  //   backgroundColor: colors.secondary,
+  //   borderWidth: 1,
+  //   borderColor: colors.lightBlue,
+  //   borderRadius: 50,
+  //   elevation: 20,
+  //   margin: 20,
+  // },
+  // RegisterButton: {
+  //   width: 100,
+  //   height: 100,
+  //   backgroundColor: colors.primary,
+  //   borderWidth: 1,
+  //   borderColor: colors.lightBlue,
+  //   borderRadius: 50,
+  //   elevation: 20,
+  //   margin: 20,
+  //   marginBottom: 40,
+  // },
 });

@@ -1,58 +1,173 @@
-import { StatusBar } from "expo-status-bar";
-import { React } from "react";
-import { Text, View, SafeAreaView, Button, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  Image,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import * as Yup from "yup";
 import { Formik } from "formik";
-import { Octicons } from "@expo/vector-icons";
 
-import { styles } from "../components/StyleSheet";
+import defaultStyles from "../config/StyleSheet";
+import { styles } from "../config/StyleSheet";
+import Screen from "../components/Screen";
+import AppText from "../components/Text";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
+
+import KeyboardWrapper from "../components/forms/KeyboardWrapper";
 import colors from "../config/colors";
 
-const Login = () => {
+// API Client
+import axios from "axios";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(4).label("Password"),
+});
+
+function LoginScreen({ navigation }) {
+  const [hidePassword, setHidePassword] = useState(true);
+  const [message, setMessage] = useState();
+  const [messageType, setMessageType] = useState();
+
+  const handleLogin = (credentials, setSubmitting) => {
+    handleMessage(null);
+    const url = "https://zendesklk.herokuapp.com/user/login";
+
+    axios
+      .post(url, credentials)
+      .then((response) => {
+        const result = response.data;
+        const { message, status, data } = result;
+
+        if (status !== "SUCCESS") {
+          handleMessage(message, status);
+        } else {
+          navigation.navigate("Welcome", { ...data[0] });
+        }
+        setSubmitting(false);
+      })
+      .catch((error) => {
+        console.log(error.JSON());
+        setSubmitting(false);
+        handleMessage("An error occured. Check your network and try again");
+      });
+  };
+
+  const handleMessage = (message, type = "FAILED") => {
+    setMessage(message);
+    setMessageType(messageType);
+  };
+
   return (
-    <SafeAreaView style={styles.Container}>
-      <StatusBar style="dark" />
-      <View style={styles.InnerContainer}>
-        <View style={styles.Logo}>
-          <Image source={require("../assets/img/logoLight.png")} />
+    <KeyboardWrapper>
+      <Screen>
+        <View style={stylesinline.container}>
+          <Image
+            style={stylesinline.logo}
+            source={require("../assets/img/logoDef.png")}
+          />
+          <AppText
+            style={[
+              {
+                textAlign: "center",
+                color: colors.primary,
+                fontSize: 20,
+                fontWeight: "bold",
+                marginBottom: 30,
+              },
+            ]}
+          >
+            ACCOUNT LOGIN
+          </AppText>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values, { setSubmitting }) => {
+              handleLogin(values, setSubmitting);
+            }}
+            validationSchema={validationSchema}
+          >
+            {({ isSubmitting }) => (
+              <>
+                <AppFormField
+                  autoCapitalize="none"
+                  autocorrect={false}
+                  icon="email"
+                  keyboardType="email-address"
+                  name="email"
+                  placeholder="Email"
+                  textConentType="emailAddress"
+                />
+                <AppFormField
+                  autoCapitalize="none"
+                  autocorrect={false}
+                  icon="lock"
+                  name="password"
+                  placeholder="Password"
+                  secureTextEntry={hidePassword}
+                  textConentType="password"
+                  isPassword={true}
+                  hidePassword={hidePassword}
+                  setHidePassword={setHidePassword}
+                />
+
+                {!isSubmitting && (
+                  <View style={{ marginTop: 25, width: "50%" }}>
+                    <SubmitButton title="Login" color="primary" />
+                  </View>
+                )}
+                {isSubmitting && (
+                  <View style={{ marginTop: 25, width: "50%" }}>
+                    <SubmitButton
+                      title="loading"
+                      color="secondary"
+                      disabled={true}
+                    />
+                    <ActivityIndicator size="large" color="primary" />
+                  </View>
+                )}
+                <AppText type={messageType} style={styles.MsgBox}>
+                  {message}
+                </AppText>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Register");
+                  }}
+                >
+                  <AppText style={[defaultStyles.text, stylesinline.text]}>
+                    Don't have an account yet?
+                  </AppText>
+                </TouchableOpacity>
+              </>
+            )}
+          </Formik>
         </View>
-        <Text style={styles.Title}>FinalProject</Text>
-        <Text style={styles.SubTitle}>Account Login</Text>
-        {/* <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
-        >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <View style={styles.StyledFormArea}>
-              <MyTextInput
-                label="Email Address"
-                icon="mail"
-                placeholder="jini@gmail.com"
-                placeholderTextColor={darkLight}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-                keyboardType="email-address"
-              />
-            </View>
-          )}
-        </Formik> */}
-      </View>
-    </SafeAreaView>
+      </Screen>
+    </KeyboardWrapper>
   );
-};
+}
 
-// const MyTextInput = ({ label, icon, ...props }) => {
-//   return (
-//     <View>
-//       <View style={styles.LeftIcon}>
-//         <Octicons name={icon} size={30} color={colors.brand} />
-//       </View>
-//       {/* <Text style={styles.StyledInputLabel}>{label}</Text>
-//       <TextInput style={styles.StyledTextInput}>{...props}</TextInput> */}
-//     </View>
-//   );
-// };
+const stylesinline = StyleSheet.create({
+  container: {
+    margin: 20,
+    padding: 20,
+    alignItems: "center",
+  },
+  logo: {
+    width: 250,
+    height: 250,
+    alignSelf: "center",
+    // marginTop: 10,
+    marginBottom: 70,
+  },
+  text: {
+    fontSize: 13,
+    marginTop: 50,
+    color: colors.darkLight,
+    textDecorationLine: "underline",
+    textAlign: "center",
+  },
+});
 
-export default Login;
+export default LoginScreen;
