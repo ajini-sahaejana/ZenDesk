@@ -5,7 +5,7 @@ import { ListItem, ListItemSeparator } from "../components/lists";
 import { FlatList } from "react-native-gesture-handler";
 import { useTailwind } from "tailwind-rn";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-const menuItems = [
+const items = [
   {
     id: 1,
     title: "Meditation Retreat Part 1",
@@ -61,7 +61,7 @@ export default function EventScreen() {
   return (
     <View>
       <FlatList
-        data={menuItems}
+        data={items}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={ListItemSeparator}
         renderItem={({ item }) => (
