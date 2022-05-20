@@ -44,7 +44,7 @@ function RegisterScreen({ navigation }) {
         if (status !== "SUCCESS") {
           handleMessage(message, status);
         } else {
-          navigation.navigate("Welcome", { ...data });
+          navigation.navigate("App", { ...data });
         }
         setSubmitting(false);
       })

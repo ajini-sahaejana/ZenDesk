@@ -44,7 +44,7 @@ function LoginScreen({ navigation }) {
         if (status !== "SUCCESS") {
           handleMessage(message, status);
         } else {
-          navigation.navigate("Welcome", { ...data[0] });
+          navigation.navigate("App", { ...data[0] });
         }
         setSubmitting(false);
       })
