@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import colors from "../config/colors";
 import { ListItem, ListItemSeparator } from "../components/lists";
 import { FlatList } from "react-native-gesture-handler";
@@ -51,6 +51,13 @@ const menuItems = [
 ];
 export default function EventScreen() {
   const tw = useTailwind();
+  const [selected, setSelected] = useState([]);
+
+  const toggleLike = (id) => {
+    const items = { ...selected };
+    items[id] = !items[id];
+    setSelected(items);
+  };
   return (
     <View>
       <FlatList
@@ -66,7 +73,8 @@ export default function EventScreen() {
             <View style={tw("flex flex-row justify-between mb-2")}>
               <Text style={tw("text-lg")}>{item.title}</Text>
               <MaterialCommunityIcons
-                name={"heart"}
+                onPress={() => toggleLike(item.id)}
+                name={`${selected[item.id] ? "heart" : "heart-outline"}`}
                 size={24}
                 style={tw("text-red-500")}
               />
