@@ -3,7 +3,7 @@ import React from "react";
 import colors from "../config/colors";
 import { ListItem, ListItemSeparator } from "../components/lists";
 import { FlatList } from "react-native-gesture-handler";
-import Icon from "../components/Icon";
+import { useTailwind } from "tailwind-rn";
 const menuItems = [
   {
     title: "Meditation Retreat Part 1",
@@ -17,6 +17,7 @@ const menuItems = [
   },
 ];
 export default function EventScreen() {
+  const tw = useTailwind();
   return (
     <View>
       <FlatList
@@ -24,11 +25,9 @@ export default function EventScreen() {
         keyExtractor={(menuItem) => menuItem.title}
         ItemSeparatorComponent={ListItemSeparator}
         renderItem={({ item }) => (
-          <ListItem
-            title={item.title}
-            subTitle={item.subTitle}
-            onPress={() => navigation.navigate(item.targetScreen)}
-          />
+          <View>
+            <Text>{item.title}</Text>
+          </View>
         )}
       />
     </View>
