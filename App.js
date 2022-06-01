@@ -1,16 +1,12 @@
-import { React } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { TailwindProvider } from "tailwind-rn";
-import utilities from "./tailwind.json";
-import NavigationTheme from "./app/navigation/NavigationTheme";
-import AuthNavigator from "./app/navigation/AuthNavigator";
+import { React, useState } from "react";
+import RootStack from "./app/navigation/RootStack";
+
+//apploading
+import AppLoading from "expo-app-loading";
+
+//async-storage
+import AsyncStorage from "@react-native-async-storage/async-storage/";
 
 export default function App() {
-  return (
-    <TailwindProvider utilities={utilities}>
-      <NavigationContainer theme={NavigationTheme}>
-        <AuthNavigator />
-      </NavigationContainer>
-    </TailwindProvider>
-  );
+  return <RootStack />;
 }
