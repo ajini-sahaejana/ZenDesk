@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Image,
   View,
@@ -21,6 +21,10 @@ import colors from "../config/colors";
 // API Client
 import axios from "axios";
 
+//credentials-context
+import AsyncStorage from "@react-native-async-storage/async-storage/";
+import { CredentialsContext } from "../components/CredentialsContext";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
@@ -30,6 +34,9 @@ function LoginScreen({ navigation }) {
   const [hidePassword, setHidePassword] = useState(true);
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
+
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
 
   const handleLogin = (credentials, setSubmitting) => {
     handleMessage(null);
@@ -43,13 +50,14 @@ function LoginScreen({ navigation }) {
 
         if (status !== "SUCCESS") {
           handleMessage(message, status);
+          setSubmitting(false);
         } else {
-          navigation.navigate("App", { ...data[0] });
+          // navigation.navigate("App", { ...data[0] });
+          persistLogin({ ...data[0] }, message, status);
         }
-        setSubmitting(false);
       })
       .catch((error) => {
-        console.log(error.JSON());
+        console.log(error);
         setSubmitting(false);
         handleMessage("An error occured. Check your network and try again");
       });
@@ -58,6 +66,18 @@ function LoginScreen({ navigation }) {
   const handleMessage = (message, type = "FAILED") => {
     setMessage(message);
     setMessageType(messageType);
+  };
+
+  const persistLogin = (credentials, message, status) => {
+    AsyncStorage.setItem("zendeskCredentials", JSON.stringify(credentials))
+      .then(() => {
+        handleMessage(message, status);
+        setStoredCredentials(credentials);
+      })
+      .catch((error) => {
+        console.log(error);
+        handleMessage("Persisting Login Failed");
+      });
   };
 
   return (

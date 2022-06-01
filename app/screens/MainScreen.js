@@ -1,10 +1,30 @@
+import React, { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+
+//credentials-context
+import AsyncStorage from "@react-native-async-storage/async-storage/";
+import { CredentialsContext } from "../components/CredentialsContext";
 
 export default function MainScreen() {
+  //context
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
+  // const { username, email } = storedCredentials;
+
+  const ClearLogin = () => {
+    AsyncStorage.removeItem("zendeskCredentials")
+      .then(() => {
+        setStoredCredentials("");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <View>
-      <Text>MainScreen</Text>
+       <WebView
+        source={{uri: 'https://github.com/facebook/react-native'}}
+        style={{marginTop: 20}}
+      />
     </View>
   );
 }

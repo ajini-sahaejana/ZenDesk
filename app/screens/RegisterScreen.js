@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Image,
   View,
@@ -20,6 +20,10 @@ import colors from "../config/colors";
 // API Client
 import axios from "axios";
 
+//credentials-context
+import AsyncStorage from "@react-native-async-storage/async-storage/";
+import { CredentialsContext } from "../components/CredentialsContext";
+
 const validationSchema = Yup.object().shape({
   username: Yup.string().required().min(3).label("Username"),
   email: Yup.string().required().email().label("Email"),
@@ -30,6 +34,10 @@ function RegisterScreen({ navigation }) {
   const [hidePassword, setHidePassword] = useState(true);
   const [message, setMessage] = useState();
   const [messageType, setMessageType] = useState();
+
+  //context
+  const { storedCredentials, setStoredCredentials } =
+    useContext(CredentialsContext);
 
   const handleRegister = (credentials, setSubmitting) => {
     handleMessage(null);
@@ -43,13 +51,14 @@ function RegisterScreen({ navigation }) {
 
         if (status !== "SUCCESS") {
           handleMessage(message, status);
+          setSubmitting(false);
         } else {
-          navigation.navigate("App", { ...data });
+          // navigation.navigate("App", { ...data });
+          persistLogin({ ...date }, message, status);
         }
-        setSubmitting(false);
       })
       .catch((error) => {
-        console.log(error.JSON());
+        console.log(error);
         setSubmitting(false);
         handleMessage("An error occured. Check your network and try again");
       });
@@ -58,6 +67,18 @@ function RegisterScreen({ navigation }) {
   const handleMessage = (message, type = "FAILED") => {
     setMessage(message);
     setMessageType(messageType);
+  };
+
+  const persistLogin = (credentials, message, status) => {
+    AsyncStorage.setItem("zendeskCredentials", JSON.stringify(credentials))
+      .then(() => {
+        handleMessage(message, status);
+        setStoredCredentials(credentials);
+      })
+      .catch((error) => {
+        console.log(error);
+        handleMessage("Persisting Login Failed");
+      });
   };
 
   return (
