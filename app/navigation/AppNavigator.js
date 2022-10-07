@@ -8,6 +8,7 @@ import MainScreen from "../screens/MainScreen";
 import HelpScreen from "../screens/HelpScreen";
 import AccountScreen from "../screens/AccountScreen";
 import AccountNavigator from "./AccountNavigator";
+import PlayerWeb from "../screens/PlayerWeb";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +21,13 @@ const AppNavigator = () => (
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="meditation" color={color} size={size} />
         ),
+      }}
+    />
+    <Tab.Screen
+      name="Meditation"
+      component={PlayerWeb}
+      options={{
+        tabBarButton: (props) => null,
       }}
     />
     <Tab.Screen

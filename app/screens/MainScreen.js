@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 //credentials-context
 import AsyncStorage from "@react-native-async-storage/async-storage/";
 import { CredentialsContext } from "../components/CredentialsContext";
+import WebView from "react-native-webview";
 
 export default function MainScreen() {
   //context
@@ -20,12 +21,10 @@ export default function MainScreen() {
   };
 
   return (
-    <View>
-       <WebView
-        source={{uri: 'https://github.com/facebook/react-native'}}
-        style={{marginTop: 20}}
-      />
-    </View>
+    <WebView
+      source={{ uri: "https://zendesk-edge.web.app" }}
+      style={{ marginTop: 20 }}
+    />
   );
 }
 
